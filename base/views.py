@@ -3,6 +3,8 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+from django.contrib.auth import authenticate, login, logout
+
 from .models import Room, Topic
 
 from .forms import RoomForm
@@ -97,14 +99,25 @@ def deleteRoom(request,pk):
 
 
 def loginPage(request):
+    username = None
+    password = None
+    
     if request  == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
     try: 
-        user = User.Object.get(username=username)
+        user = User.objects.get(username=username)
     except:
         messages.error(request, 'User not found')
+
+    user = authenticate(request, username=username, password=password)
+
+    if user is not None:
+        login(request, user)
+        return redirect('home')
+    else: 
+        messages.error(request, 'Username or password is incorrect')
     
     context = {}
     

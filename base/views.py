@@ -1,18 +1,13 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-
+from django.contrib.auth.models import User
+from django.contrib import messages
 
 from .models import Room, Topic
 
 from .forms import RoomForm
 
 # Create your views here.
-
-
-
-
-
-
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') != None else ''
@@ -21,18 +16,7 @@ def home(request):
         Q(topic__name__icontains=q) |
         Q(name__icontains=q) |
         Q(description__icontains=q)
-
-
-        
-        
-        
         )
-    
-
-    
-    
-
-
     topics = Topic.objects.all()
 
 
@@ -108,3 +92,24 @@ def deleteRoom(request,pk):
     
     
     return render(request, 'base/delete.html', {'obj': room})
+
+
+
+
+def loginPage(request):
+    if request  == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+    try: 
+        user = User.Object.get(username=username)
+    except:
+        messages.error(request, 'User not found')
+    
+    context = {}
+    
+    
+    return render(request, 'base/login_register.html', context)
+
+
+    

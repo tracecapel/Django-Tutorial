@@ -41,7 +41,7 @@ def room(request, pk):
     room = Room.objects.get(id=pk)
 
     room_messages = room.messages.all().order_by('-created')
-
+    
 
     participants = room.participants.all()
 
@@ -205,3 +205,13 @@ def deleteMessage(request,pk):
     
     
     return render(request, 'base/room.html', {'obj': message})
+
+
+
+
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    
+    
+    context = {'user': user}
+    return render(request, 'base/profile.html', context)

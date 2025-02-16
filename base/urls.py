@@ -3,7 +3,9 @@ from . import views
 from django.http import HttpResponse
 
 urlpatterns = [
+    
     path('login/', views.loginPage, name="login"),
+    path('logout/', views.logoutUser, name="logout"),
     
     
     path('',views.home, name="home"),

@@ -217,3 +217,4 @@ def userProfile(request, pk):
     
     context = {'user': user}
     return render(request, 'base/profile.html', context)
+

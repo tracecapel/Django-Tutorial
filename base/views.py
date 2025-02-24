@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from .models import Room, Topic, Message
 
-from .forms import RoomForm
+from .forms import RoomForm, UserForm
 
 # Create your views here.
 
@@ -216,5 +216,23 @@ def userProfile(request, pk):
     
     
     context = {'user': user}
-    return render(request, 'base/profile.html', context)
+    return render(request, 'C:/Users/trace/studybud/base/templates/base/profile.html', context)
+
+
+
+@login_required
+def updateUser(request):
+    user = request.user
+    form = UserForm(instance=request.user)
+
+
+    if request.method == 'POST':
+        
+        form = UserForm(request.POST, instance=user)
+
+        if form.is_valid():
+            form.save()
+            redirect('user-profile', pk=user.id)
+    
+    return render(request, 'C:/Users/trace/studybud/base/templates/base/update-user.html')
 

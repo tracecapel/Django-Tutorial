@@ -236,3 +236,5 @@ def updateUser(request):
     
     return render(request, 'C:/Users/trace/studybud/base/templates/base/update-user.html')
 
+def topicsPage(request):
+    return render(request, 'base/topics/html', {})

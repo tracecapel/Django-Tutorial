@@ -10,6 +10,11 @@
     <!-- Room List Start -->
     <div class="roomList">
       <div class="mobile-menu">
+        <form
+          action="{% url 'home' %}"
+          methods="GET"
+          class="header_search"
+        ></form>
         <form class="header__search">
           <label>
             <svg
